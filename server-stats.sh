@@ -16,6 +16,18 @@ echo "Disk Usage:"
 df -h -total | awk 'END{print"Used: "$3", Free: "$4", Usage: "$5}'
 }
 
+get_top_5_cpu()
+{
+echo "Top 5 Processes by CPU Usage:"
+ps -eo pid,ppid,cmd,%mem,%cpu - sort=-%cpu | head -n 6
+}
+
+get_top_5_mem()
+{
+echo "Top 5 Processes by Memmory Usage:"
+ps -eo pid,ppid,cmd,%mem,%cpu - sort=-%mem | head -n 6
+}
+
 get_extra_stats()
 {
 echo "OS Version:"
@@ -37,6 +49,8 @@ echo "------------------------"
 get_cpu_usage
 get_memory_usage
 get_disk_usage
+get_top_5_cpu
+get_top_5_mem
 get_extra_stats
 }
 main
