@@ -18,14 +18,15 @@ df -h -total | awk 'END{print"Used: "$3", Free: "$4", Usage: "$5}'
 
 get_top_5_cpu()
 {
-echo "Top 5 Processes by CPU Usage:"
-ps -eo pid,ppid,cmd,%mem,%cpu - sort=-%cpu | head -n 6
+echo “Top 5 Processes by CPU Usage:”
+ps aux --sort -%cpu | head -n 6 | awk '{print $1 "\t" $2 "\t" $3 "\t" $11}'
+
 }
 
 get_top_5_mem()
 {
 echo "Top 5 Processes by Memmory Usage:"
-ps -eo pid,ppid,cmd,%mem,%cpu - sort=-%mem | head -n 6
+ps aux --sort -%mem | head -n 6 | awk '{print $1 "\t" $2 "\t" $4 "\t" $11}'
 }
 
 get_extra_stats()
